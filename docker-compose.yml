@@ -1,0 +1,23 @@
+# Backend + frontend. Set HUGGINGFACEHUB_API_TOKEN in .env or below.
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - faiss_data:/app/faiss_index
+    env_file:
+      - ./backend/.env
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - VITE_API_URL=http://localhost:8000
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  faiss_data:
