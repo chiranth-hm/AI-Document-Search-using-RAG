@@ -18,6 +18,11 @@ faiss_index/
 .env.local
 .env.*.local
 
+# Firebase / Google service account keys (never commit)
+*service*account*.json
+*firebase*admin*.json
+*-firebase-adminsdk-*.json
+
 # IDE / OS
 .idea/
 .vscode/
