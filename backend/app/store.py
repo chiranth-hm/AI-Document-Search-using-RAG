@@ -1,6 +1,7 @@
 """FAISS vector store (local)."""
 from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
+import shutil
 
 from app.config import settings
 from app.embeddings import get_embedding_model
@@ -30,3 +31,10 @@ def add_documents_to_faiss(docs: list[Document]) -> FAISS:
     existing.add_documents(docs)
     existing.save_local(str(settings.FAISS_INDEX_DIR))
     return existing
+
+
+def reset_faiss_store():
+    dir_path = settings.FAISS_INDEX_DIR
+    if dir_path.exists():
+        shutil.rmtree(dir_path)
+    dir_path.mkdir(parents=True, exist_ok=True)

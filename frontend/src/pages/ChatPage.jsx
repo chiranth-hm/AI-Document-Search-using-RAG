@@ -26,6 +26,11 @@ export function ChatPage() {
     setUploadSuccess(null)
     setLoading(true)
     try {
+      const resetRes = await fetchWithTimeout(`${API_BASE}/reset`, { method: 'POST' }, INGEST_TIMEOUT_MS)
+      if (!resetRes.ok) {
+        const data = await resetRes.json().catch(() => ({}))
+        throw new Error(data.detail || 'Could not reset previous documents')
+      }
       let totalChunks = 0
       for (const file of files) {
         const formData = new FormData()

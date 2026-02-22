@@ -41,6 +41,14 @@ def root():
 def health():
     return {"status": "ok"}
 
+@app.post("/reset")
+def reset():
+    try:
+        from app.store import reset_faiss_store
+        reset_faiss_store()
+        return {"success": True, "message": "Vector index cleared"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Reset failed: {str(e)}")
 
 @app.post("/ingest", response_model=IngestResponse)
 async def ingest(file: UploadFile = File(...)):
