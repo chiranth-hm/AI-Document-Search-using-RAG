@@ -17,22 +17,45 @@ Chat with PDFs using **LLM + semantic search**. One API key (Hugging Face), no l
    [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens) → Create token (read is enough).
 
 2. **Backend**
+
+   **macOS / Linux**
    ```bash
    cd backend
-   python -m venv .venv
-   .venv\Scripts\activate    # Windows
+   python3 -m venv .venv
+   source .venv/bin/activate
    pip install -r requirements.txt
-   copy .env.example .env   # then put your token in .env
+   cp .env.example .env   # then put your token in .env
    python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
    ```
+
+   **Windows (Command Prompt)**
+   ```cmd
+   cd backend
+   py -3 -m venv .venv
+   .venv\Scripts\activate
+   pip install -r requirements.txt
+   copy .env.example .env
+   python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+   ```
+   If `py -3` is not available, use `python -m venv .venv` instead (Python 3 on PATH). In **PowerShell**, activate with `.\.venv\Scripts\Activate.ps1` (you may need to allow scripts for your session).
 
 3. **Frontend** (with Firebase login)
    - In Firebase Console, enable **Email/Password** and **Google** under Authentication → Sign-in method.
    - Create a Web app if needed; copy the config into `frontend/.env` (see `frontend/.env.example`). Use your project ID (e.g. `document-search-using-rag`) and fill `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_APP_ID`, `VITE_FIREBASE_MESSAGING_SENDER_ID` from the Firebase config.
+
+   **macOS / Linux**
    ```bash
    cd frontend
    npm install
    cp .env.example .env   # then add your Firebase config values
+   npm run dev
+   ```
+
+   **Windows (Command Prompt)**
+   ```cmd
+   cd frontend
+   npm install
+   copy .env.example .env
    npm run dev
    ```
 
